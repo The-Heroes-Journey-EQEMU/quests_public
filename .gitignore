@@ -1,0 +1,4 @@
+.tmp.driveupload/
+*.zip
+.vscode/
+desktop.ini
