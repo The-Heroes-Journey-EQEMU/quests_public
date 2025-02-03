@@ -21,8 +21,13 @@ jobs:
 
       - name: Fetch full history to ensure common ancestor
         run: |
-          git fetch --unshallow || true  # If repo is already unshallowed, this prevents failure
+          git fetch --unshallow || true  # Avoids failure if already unshallowed
           git fetch public staging --no-tags
+
+      - name: Set Git Identity
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
 
       - name: Enable Sparse Checkout (Exclude Workflows)
         run: |
