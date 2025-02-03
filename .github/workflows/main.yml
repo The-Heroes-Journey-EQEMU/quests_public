@@ -14,7 +14,7 @@ jobs:
           repository: The-Heroes-Journey-EQEMU/quests_private
           ref: staging
           token: ${{ secrets.REPOSITORY_KEY }}
-          fetch-depth: 0  # Ensures full history is fetched
+          fetch-depth: 0
 
       - name: Add quests_public remote
         run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git || true
