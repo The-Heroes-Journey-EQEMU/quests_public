@@ -26,7 +26,7 @@ jobs:
 
       - name: Set Git Identity
         run: |
-          git config user.email "github-actions@github.com"
+          git config user.email "github-actions@heroesjourneyemu.com"
           git config user.name "GitHub Actions"
 
       - name: Fast-forward merge Public → Private (Preserve Workflows)
