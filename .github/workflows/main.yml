@@ -1,0 +1,27 @@
+name: Sync Public to Private
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout quests_private
+        uses: actions/checkout@v4
+        with:
+          repository: The-Heroes-Journey-EQEMU/quests_private
+          ref: staging
+          token: ${{ secrets.REPOSITORY_KEY }}
+
+      - name: Add quests_public remote
+        run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git
+
+      - name: Fetch latest changes
+        run: git fetch public staging
+
+      - name: Fast-forward merge Public → Private
+        run: |
+          git merge --ff-only public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
+          git push origin staging
