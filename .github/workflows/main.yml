@@ -29,18 +29,16 @@ jobs:
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Fast-forward merge Public → Private (With Rules)
+      - name: Rebase Public → Private (Avoid Merge Commits)
         run: |
-          git merge --ff public/staging || (
-            echo "Merge conflict detected! Resolving automatically..."
+          git pull --rebase public staging || (
+            echo "Rebase conflict detected! Resolving automatically..."
             
             git rm -rf .github/workflows || true
-
             git diff --name-only --diff-filter=A public/staging | xargs -I {} git checkout public/staging -- {} || true
-
             git diff --name-only --diff-filter=U | xargs git checkout --ours || true
 
             git add .
-            git commit -m "Automatically resolved conflicts (kept private version, added new files from public)"
+            git rebase --continue || true
           )
-          git push origin staging
+          git push origin staging --force
