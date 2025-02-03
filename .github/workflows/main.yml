@@ -14,19 +14,22 @@ jobs:
           repository: The-Heroes-Journey-EQEMU/quests_private
           ref: staging
           token: ${{ secrets.REPOSITORY_KEY }}
+          fetch-depth: 0  # Ensures full history is fetched
+
+      - name: Add quests_public remote
+        run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git || true
+
+      - name: Fetch full history to ensure common ancestor
+        run: |
+          git fetch --unshallow || true  # If repo is already unshallowed, this prevents failure
+          git fetch public staging --no-tags
 
       - name: Enable Sparse Checkout (Exclude Workflows)
         run: |
           git sparse-checkout init --cone
           git sparse-checkout set ':!github/workflows'  # Exclude workflows
 
-      - name: Add quests_public remote
-        run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git
-
-      - name: Fetch latest changes
-        run: git fetch public staging
-
       - name: Fast-forward merge Public → Private (Excluding Workflows)
         run: |
-          git merge --ff-only public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
+          git merge --ff public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
           git push origin staging
