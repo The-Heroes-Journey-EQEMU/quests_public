@@ -13,7 +13,8 @@ my @target_list = ('Trakanon',
                    'Gorenaire',
                    'Severilous');
 
-sub EVENT_SAY {    
+sub EVENT_SAY {
+    quest::say("I'm just saying stuff!");
     if ($text=~/hail/i) {
         plugin::ConvertFlags($client);
         if (plugin::is_stage_complete($client, $stage_key)) {
