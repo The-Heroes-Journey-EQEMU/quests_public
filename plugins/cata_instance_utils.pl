@@ -67,9 +67,9 @@ sub OfferStandardInstance {
 				$dz->AddReplayLockout($non_respawning_duration);
 			}
 	
-			plugin::NPCTell("Very well. When you are [$ready_link], proceed into the portal, and remember!");
+			plugin::YellowText("The instance is [$ready_link].");
 		} else {
-			plugin::NPCTell("I'm sorry, but I was not able to create this instance for you, mortal.");
+			plugin::YellowText("Unable to create instance.");
 		}
 	}
 	elsif ($text =~ /ready/i) {
