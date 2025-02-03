@@ -31,6 +31,8 @@ sub EVENT_CLICKDOOR {
     }    
 }
 
+# trivial change to test pipeline
+
 sub EVENT_POPUPRESPONSE {
     if ($popupid == 1460 || $popupid == 1461) {
         my $group_flg           = quest::get_data($client->AccountID() ."-group-ports-enabled") || "";
