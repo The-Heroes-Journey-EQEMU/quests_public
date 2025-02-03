@@ -15,13 +15,18 @@ jobs:
           ref: staging
           token: ${{ secrets.REPOSITORY_KEY }}
 
+      - name: Enable Sparse Checkout (Exclude Workflows)
+        run: |
+          git sparse-checkout init --cone
+          git sparse-checkout set ':!github/workflows'  # Exclude workflows
+
       - name: Add quests_public remote
         run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git
 
       - name: Fetch latest changes
         run: git fetch public staging
 
-      - name: Fast-forward merge Public → Private
+      - name: Fast-forward merge Public → Private (Excluding Workflows)
         run: |
           git merge --ff-only public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
           git push origin staging
