@@ -14,19 +14,36 @@ jobs:
           repository: The-Heroes-Journey-EQEMU/quests_private
           ref: staging
           token: ${{ secrets.REPOSITORY_KEY }}
+          fetch-depth: 0
+
+      - name: Add quests_public remote
+        run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git || true
+
+      - name: Fetch full history
+        run: |
+          git fetch --unshallow || true
+          git fetch public staging --no-tags
+
+      - name: Set Git Identity
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
 
       - name: Enable Sparse Checkout (Exclude Workflows)
         run: |
           git sparse-checkout init --cone
-          git sparse-checkout set ':!github/workflows'  # Exclude workflows
+          git sparse-checkout set ':!github/workflows'
 
-      - name: Add quests_public remote
-        run: git remote add public https://github.com/The-Heroes-Journey-EQEMU/quests_public.git
-
-      - name: Fetch latest changes
-        run: git fetch public staging
-
-      - name: Fast-forward merge Public → Private (Excluding Workflows)
+      - name: Fast-forward merge Public → Private (With Rules)
         run: |
-          git merge --ff-only public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
+          git merge --ff public/staging || (
+            echo "Merge conflict detected! Resolving automatically..."
+            
+            git diff --name-only --diff-filter=A public/staging | xargs -I {} git checkout public/staging -- {} || true
+
+            git diff --name-only --diff-filter=U | xargs git checkout --ours || true
+
+            git add .
+            git commit -m "Automatically resolved conflicts (kept private version, added new files from public)"
+          )
           git push origin staging
