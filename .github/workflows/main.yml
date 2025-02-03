@@ -31,14 +31,19 @@ jobs:
 
       - name: Rebase Public → Private (Avoid Merge Commits)
         run: |
+          set -e  # Ensure script exits on error
+          
           git pull --rebase public staging || (
             echo "Rebase conflict detected! Resolving automatically..."
-            
+
             git rm -rf .github/workflows || true
+
             git diff --name-only --diff-filter=A public/staging | xargs -I {} git checkout public/staging -- {} || true
+
             git diff --name-only --diff-filter=U | xargs git checkout --ours || true
 
             git add .
-            git rebase --continue || true
+            git rebase --skip || git rebase --abort
           )
+
           git push origin staging --force
