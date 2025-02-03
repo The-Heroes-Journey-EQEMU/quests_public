@@ -39,8 +39,6 @@ jobs:
           git merge --ff public/staging || (
             echo "Merge conflict detected! Resolving automatically..."
             
-            git rm -rf .github/workflows || true
-
             git diff --name-only --diff-filter=A public/staging | xargs -I {} git checkout public/staging -- {} || true
 
             git diff --name-only --diff-filter=U | xargs git checkout --ours || true
