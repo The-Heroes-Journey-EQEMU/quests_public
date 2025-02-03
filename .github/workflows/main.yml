@@ -21,7 +21,7 @@ jobs:
 
       - name: Fetch full history to ensure common ancestor
         run: |
-          git fetch --unshallow || true  # Avoids failure if already unshallowed
+          git fetch --unshallow || true
           git fetch public staging --no-tags
 
       - name: Set Git Identity
@@ -34,7 +34,15 @@ jobs:
           git sparse-checkout init --cone
           git sparse-checkout set ':!github/workflows'  # Exclude workflows
 
-      - name: Fast-forward merge Public → Private (Excluding Workflows)
+      - name: Fast-forward merge Public → Private (Always Keep Private Version)
         run: |
-          git merge --ff public/staging || (echo "Merge conflict! Manual intervention required." && exit 1)
+          git merge --ff public/staging || (
+            echo "Merge conflict detected! Resolving automatically..."
+            
+            git checkout --ours . || true
+            git add . || true
+            
+            git commit -m "Automatically resolved conflicts (kept private version of files)"
+          )
+          
           git push origin staging
