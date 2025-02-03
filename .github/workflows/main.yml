@@ -29,16 +29,13 @@ jobs:
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Enable Sparse Checkout (Exclude Workflows)
-        run: |
-          git sparse-checkout init --cone
-          git sparse-checkout set ':!github/workflows'
-
       - name: Fast-forward merge Public → Private (With Rules)
         run: |
           git merge --ff public/staging || (
             echo "Merge conflict detected! Resolving automatically..."
             
+            git rm -rf .github/workflows || true
+
             git diff --name-only --diff-filter=A public/staging | xargs -I {} git checkout public/staging -- {} || true
 
             git diff --name-only --diff-filter=U | xargs git checkout --ours || true
