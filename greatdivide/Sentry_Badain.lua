@@ -1,14 +1,14 @@
 local war_started = false
 
 function event_spawn(e)
-	if (tostring(eq.get_zone_instance_version()) != eq.get_rule("Custom:StaticInstanceVersion")) then -- Only spawn Badain in non-respawning dz
+	if tostring(eq.get_zone_instance_version()) ~= eq.get_rule("Custom:StaticInstanceVersion") then -- Only spawn Badain in non-respawning dz
 		e.self:Depop();
 	end
 	war_started = false
 end
 
 function event_say(e)
-	if(e.message:findi("hail")) then
+	if e.message:findi("hail") then
 		e.self:Say("Hail, outlander. Unless ye have orders from the Dain, leave me be. I must man my post.");
 	end
 end
@@ -25,7 +25,6 @@ function event_trade(e)
 		eq.set_timer("smallPause", 2500);
 		war_started = true
 	end
-	
 	item_lib.return_items(e.self, e.other, e.trade);
 end
 
