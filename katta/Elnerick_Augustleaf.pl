@@ -1,6 +1,6 @@
 # items: 29881, 29882, 29883, 29884, 3650, 7096
 sub EVENT_SAY {
-  if ($EarringVeracity3 eq "1") {
+  if (defined $qglobals{EarringVeracity3} && $qglobals{EarringVeracity3} == 1) {
     if ($text=~/hail/i) {
       quest::say("Greetings $name. I am Magistrate Elnerick Augustleaf of Katta Castellum and the Loyalist Empire. If it is arcane knowledge that you seek you have come to an excellent place to study. Not only do we have wondrous magical resources available at the Magus Conlegium but the teachings of Tsaph Katta are well known to all of our citizens and aid in preparing the mind for the freedom of thought and mental and emotional discipline needed to become a great wizard.");
     }
@@ -11,7 +11,7 @@ sub EVENT_SAY {
 }
 
 sub EVENT_ITEM {
-  if ($EarringVeracity3 eq "1") {
+  if (defined $qglobals{EarringVeracity3} && $qglobals{EarringVeracity3} == 1) {
     # 29881 :  Shard of the Shoulder
     # 29882 :  Shard of the Eye
     # 29883 :  Shard of the Hand
