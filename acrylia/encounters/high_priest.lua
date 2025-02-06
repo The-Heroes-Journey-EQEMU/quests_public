@@ -113,6 +113,7 @@ function evt_shackles_timer(e)
 			boss = grimling_high_priest;
 		end
 
+		eq.stop_timer("player_check");
 		player:MovePCInstance(154, instance_id, 150, -690, 2, 384);
 		player:Message(MT.Yellow,"You have been summoned!");
 		eq.signal(boss,sacrifice);	-- Signal to hp to aggro the assigned PC sacrifice after summon
