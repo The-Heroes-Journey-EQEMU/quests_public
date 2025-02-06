@@ -190,6 +190,10 @@ function GMControl(e)
 end
 
 function event_encounter_load(e)
+	if not eq.is_static_instance() then
+		return;
+	end	
+
 	eq.register_npc_event(Event.tick,           controller_id, check_serpent_triggers);
 	eq.register_npc_event(Event.spawn,          controller_id, evt_controller_spawn);
 	eq.register_npc_event(Event.death_complete, serpent_id,    evt_serpent_death);

@@ -140,6 +140,10 @@ function GMControl(e)
 end
 
 function event_encounter_load(e)
+	if not eq.is_static_instance() then
+		return;
+	end	
+	
 	eq.register_npc_event(Event.spawn,          zhezum_id,  evt_zhezum_spawn);
 	eq.register_npc_event(Event.death_complete, zhezum_id,  evt_zhezum_death);
 	eq.register_npc_event(Event.death_complete, mozdezh_id, evt_mozdezh_death);

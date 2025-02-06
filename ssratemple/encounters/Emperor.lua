@@ -13,10 +13,6 @@ function get_data_key(suffix)
 end
 
 function get_state()
-	if eq.get_zone_instance_id() == 0 then
-		return -1;
-	end
-
 	local state_str = eq.get_data(get_data_key("state"));
 	if state_str == nil then
 		state_str = "0";
@@ -161,6 +157,10 @@ function GMControl(e)
 end
 
 function event_encounter_load(e)
+	if not eq.is_static_instance() then
+		return;
+	end	
+
 	eq.register_npc_event(Event.spawn,          blood_id,   evt_blood_spawn);
 	eq.register_npc_event(Event.death_complete, blood_id,   evt_blood_death);
 	eq.register_npc_event(Event.death_complete, empreal_id, evt_emp_death);
