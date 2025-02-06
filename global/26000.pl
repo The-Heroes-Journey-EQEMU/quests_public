@@ -14,6 +14,8 @@ sub EVENT_SAY {
     my $flag_stage = $npc->GetEntityVariable("Stage-Name");
     my $flag_name  = $npc->GetEntityVariable("Flag-Name");
 
+    if ($flag_name eq "emperorssraeshza") { $flag_name = "emperor ssraeshza"}
+
     quest::debug("flag_stage: $flag_stage, flag_name: $flag_name");
 
     if ($text =~ /hail/i) {

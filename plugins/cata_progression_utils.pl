@@ -878,6 +878,9 @@ sub handle_death {
     }
 
     my $npc_name = lc($npc->GetCleanName());
+
+    quest::debug("CleanName: $npc_name");
+
     $npc_name =~ s/^[#\s]+|[#\s]+$//g;
 
     if (plugin::subflag_exists($npc_name)) {        
