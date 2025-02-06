@@ -380,26 +380,6 @@ sub SetSubflag {
         }
     }
 
-    if ($client->IsSeasonal() && is_stage_complete_2($client, $stage) && !$client->GetBucket("season-$stage-complete")) {      
-        if ($stage eq 'RoK') {
-            plugin::AddTitleFlag(100); # Hero of Antonica
-        }
-        elsif ($stage eq 'SoV') {
-            plugin::AddTitleFlag(101); # Hero of Kunark
-            $client->KeyRingAdd(20884);
-        }
-        elsif ($stage eq 'SoL') {
-            plugin::AddTitleFlag(102); # Hero of Velious
-        }
-        elsif ($stage eq 'PoP') {
-            plugin::AddTitleFlag(103); # Hero of Luclin            
-            $client->KeyRingAdd(22198);
-        }
-
-        $client->SetBucket("season-$stage-complete", "true");
-        plugin::YellowText("Your Portable Hole is eligible to be upgraded. See the Sage of Anachronism in The Bazaar for more information.");
-    }
-
     return 1;
 }
 

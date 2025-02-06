@@ -17,6 +17,10 @@ sub CommonCharacterUpdate {
         plugin::GrantClassesAA($client);
         plugin::GrantGeneralAA($client);
 
+        if (!$client->KeyRingCheck(22198) && plugin::is_stage_complete_2($client, 'PoP')) {
+            $client->KeyRingAdd(22198);
+        }
+
         if ($client->IsTaskActivityActive(3, 5) && $client->GetLevel() >= 5) {
             $client->UpdateTaskActivity(3, 5, 1);
         }
