@@ -348,7 +348,16 @@ sub EVENT_CAST_ON {
 
 sub EVENT_CAST {
     if (plugin::GetSoulmark($client) && int(rand(100)) == 0) {
+        quests::debug("You seem to have a soulmark.");
         $client->CastSpell(3087, $client->GetID());
+    }
+}
+
+sub EVENT_CAST_BEGIN {
+    if ($spell_id == 2931 && $zoneid != 159) {
+        $client->Message(289, "This may only be used inside Sanctus Seru.");
+        $client->InterruptSpell();
+        return 1;
     }
 }
 
