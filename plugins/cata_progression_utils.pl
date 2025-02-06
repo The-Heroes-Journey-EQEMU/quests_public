@@ -308,8 +308,12 @@ sub SetSubflag {
     $value //= 1;  # Default value is 1 if not otherwise defined
     $objective = lc($objective);  # Normalize the objective
 
+    quest::debug($objective);
+
     # Check if the stage is valid
     return 0 unless exists $VALID_STAGES{$stage};
+
+    quest::debug($objective);
 
     # Get the current progress flag using the new getter
     my $progress_flag = GetProgressFlag($client, $stage);
@@ -322,6 +326,8 @@ sub SetSubflag {
 
     # Set the updated flag using the new setter
     SetProgressFlag($client, $stage, plugin::SerializeHash(%account_progress));
+
+    quest::debug("Check 3 : $stage - " . GetProgressFlag($client, $stage));
 
     if ($stage eq 'RoK') {
         plugin::BlueText("Your mind flashes with recollections of savage lands; dense jungles, desolate swamps, and fiery wastes.");
