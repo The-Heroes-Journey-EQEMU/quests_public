@@ -25,7 +25,7 @@ local wave_timer			= 3 * 60; 	-- Set in seconds for total wave timer  (3 min def
 local delay					= 15		-- Set in seconds to provide delay between HP dialogue between waves and minions spawning (15 seconds default)
 local wave					= 0;
 local shackle_failure_dist	= 50;		-- Normally this is 10, but for THJ we are making it a var for adjustments
-local shackle_timer_check	= 10;		-- Time between location/failure checks, Default: 1s
+local shackle_timer_check	= 2;		-- Time between location/failure checks, Default: 1s
 
 -- HP_Shackles
 function evt_shackles_spawn(e)
