@@ -76,6 +76,7 @@ function evt_shei_combat(e)
 				dt_timer = true;
 			end
 			eq.set_timer('aggro_guards', 30 * 1000);
+			eq.set_timer("shei_despawn_full", 60 * 60 * 1000);
 		end
 	else
 		if e.self:GetNPCTypeID() == real_shei then
@@ -87,7 +88,6 @@ end
 
 function evt_fake_shei_death(e)
 	eq.unique_spawn(real_shei, 0, 0, -1736, 1082, 22.6, 128);
-	eq.set_timer("shei_despawn_full", 60 * 60 * 1000);
 end
 
 function evt_shei_timer(e)
