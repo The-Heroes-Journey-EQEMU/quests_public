@@ -65,14 +65,14 @@ function evt_trigger_spawn(e)
 	eq.set_timer("fail", 60 * 60 * 1000);  --60 min
 	scenario = math.random(1,2);
 	if scenario == 1 then
-		eq.unique_spawn(arcanists[1],0,0,table.unpack(arcanist_locs[1]));	-- NPC: Spiritual Arcanist V1 (True Arcanist)
-		eq.unique_spawn(arcanists[2],0,0,table.unpack(arcanist_locs[2]));	-- NPC: Spiritual Arcanist V2 (False Arcanist)
+		eq.unique_spawn(arcanists[1],0,0,unpack(arcanist_locs[1]));	-- NPC: Spiritual Arcanist V1 (True Arcanist)
+		eq.unique_spawn(arcanists[2],0,0,unpack(arcanist_locs[2]));	-- NPC: Spiritual Arcanist V2 (False Arcanist)
 
 		SpawnMobs(spiritwarder_true,east_grimling_locs);
 		SpawnMobs(spiritwarder_false,west_grimling_locs);
 	else
-		eq.unique_spawn(arcanists[2],0,0,table.unpack(arcanist_locs[1]));	-- NPC: Spiritual Arcanist V1 (False Arcanist)
-		eq.unique_spawn(arcanists[1],0,0,table.unpack(arcanist_locs[2]));	-- NPC: Spiritual Arcanist V2 (True Arcanist)
+		eq.unique_spawn(arcanists[2],0,0,unpack(arcanist_locs[1]));	-- NPC: Spiritual Arcanist V1 (False Arcanist)
+		eq.unique_spawn(arcanists[1],0,0,unpack(arcanist_locs[2]));	-- NPC: Spiritual Arcanist V2 (True Arcanist)
 
 		SpawnMobs(spiritwarder_false,east_grimling_locs);
 		SpawnMobs(spiritwarder_true,west_grimling_locs);
@@ -152,7 +152,7 @@ function evt_wod_timer(e)
 	if e.timer == "sacrifice" then
 		eq.stop_timer(e.timer);
 		eq.set_timer("sacrifice", math.random(30,45) * 1000);
-		eq.spawn2(a_sacrifice,0,0,table.unpack(sacrifice_locs[math.random(1,3)]));	-- NPC: a_sacrifice 
+		eq.spawn2(a_sacrifice,0,0,unpack(sacrifice_locs[math.random(1,3)]));	-- NPC: a_sacrifice 
 	end
 end
 
@@ -709,7 +709,7 @@ end
 
 function SpawnMobs(npc, locs)	-- Used to spawn both spiritwarders and deathguards since both are in packs of 4
 	for n = 1,4 do
-		eq.spawn2(npc,0,0,table.unpack(locs[n]));
+		eq.spawn2(npc,0,0,unpack(locs[n]));
 	end
 end
 
@@ -773,7 +773,7 @@ function SpawnMinions()
 	eq.depop_all(defiled_minion);
 
 	for n = 1,4 do
-		eq.spawn2(defiled_minion,0,0,table.unpack(khati_guard_locs[n])); -- NPC: Defiled Minion
+		eq.spawn2(defiled_minion,0,0,unpack(khati_guard_locs[n])); -- NPC: Defiled Minion
 	end
 end
 
@@ -867,7 +867,7 @@ end
 
 function SpawnJammers(total,cell)
 	for n = 1,total do
-		eq.spawn2(spell_jammer,0,0,table.unpack(cell[n]));
+		eq.spawn2(spell_jammer,0,0,unpack(cell[n]));
 	end
 end
 
@@ -889,7 +889,7 @@ function EventSetup()
 	eq.unique_spawn(spiritist_andro_shimi,0,0,344, -323.49, -7.94,512);	-- NPC: Spiritist_Andro_Shimi
 	eq.unique_spawn(spiritist_kama_resan,0,0,344, -232.48, -7.94,512);	-- NPC: Spiritist_Kama_Resan 
 	for n = 1,8 do
-		eq.spawn2(a_grimling_guard,0,0,table.unpack(guard_locs[n]));
+		eq.spawn2(a_grimling_guard,0,0,unpack(guard_locs[n]));
 	end
 	life_seal		= false;
 	death_seal		= false;
