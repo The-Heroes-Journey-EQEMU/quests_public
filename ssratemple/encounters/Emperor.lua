@@ -61,7 +61,7 @@ function evt_emp_death(e)
 		local name = string.lower(e.self:GetCleanName());
 		name = string.gsub(name, "^[#%s]+", "");
 		name = string.gsub(name, "[#%s]+$", "");
-
+		--
 		memory_npc:SetEntityVariable("Flag-Name", name);
 		memory_npc:SetEntityVariable("Stage-Name", "PoP");
 	end
