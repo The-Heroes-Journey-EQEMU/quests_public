@@ -545,7 +545,7 @@ function evt_shimi_timer(e)
 		if not as_CheckJammers(e) then
 			e.self:Emote("chants and rocks as the spell continues.")
 			eq.signal(warder_of_life_npc,95)  -- Signals Ward of Life to sum up successful chants
-			as_chants = chants + 1;
+			as_chants = as_chants + 1;
 			if as_chants == 8 then
 				eq.stop_timer(e.timer);
 			end
