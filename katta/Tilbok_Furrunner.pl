@@ -61,7 +61,7 @@ sub EVENT_ITEM {
     quest::faction(1485,-2);  #Eye of Seru
     quest::faction(1541,-2); #Hand Legionnaries
     quest::exp(1000000);
-    quest::setglobal("EarringVeracity3","1",1,"Y1"); #Used with Lcea Katta
+    quest::setglobal("EarringVeracity3",1,1,"Y1"); #Used with Lcea Katta
    }
   elsif (plugin::check_handin(\%itemcount, 29844 => 1)) { #Dossier: Case 3463827
     quest::emote("reads through the dossier and then looks at you, eyebrow raised curiously, 'look at the mess you have gotten yourself in the middle of,' he says with a chuckle, while beginning to jot a note. 'Here take this and...' he stops midsentence. 'I guess I haven't even given you the chance to say whether or not you want to help. Would you like to see this through to the end?'");
