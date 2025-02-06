@@ -24,6 +24,8 @@ local initial				= 30;		-- Initial time to check if player is in proximity for e
 local wave_timer			= 3 * 60; 	-- Set in seconds for total wave timer  (3 min default)
 local delay					= 15		-- Set in seconds to provide delay between HP dialogue between waves and minions spawning (15 seconds default)
 local wave					= 0;
+local shackle_failure_dist	= 50;		-- Normally this is 10, but for THJ we are making it a var for adjustments
+local shackle_timer_check	= 10;		-- Time between location/failure checks, Default: 1s
 
 -- HP_Shackles
 function evt_shackles_spawn(e)
@@ -55,7 +57,7 @@ function evt_shackles_timer(e)
 			EventReset();
 		elseif not started then						-- Start Event
 			eq.stop_timer("player_check");
-			eq.set_timer("player_check",1000);
+			eq.set_timer("player_check",shackle_timer_check * 1000);
 			eq.set_timer("waves",15 * 1000);		-- First timer is short
 			started = true
 			HPShout();								-- Initial shout for event start
@@ -111,6 +113,7 @@ function evt_shackles_timer(e)
 			boss = grimling_high_priest;
 		end
 
+		eq.stop_timer("player_check");
 		player:MovePCInstance(154, instance_id, 150, -690, 2, 384);
 		player:Message(MT.Yellow,"You have been summoned!");
 		eq.signal(boss,sacrifice);	-- Signal to hp to aggro the assigned PC sacrifice after summon
@@ -282,7 +285,7 @@ function player_check(e)
 
 	if player_list ~= nil then
 		for player in player_list.entries do
-			if player:CalculateDistance(40, -726, 11) <= 10 and player:CharacterID() == sacrifice then
+			if player:CalculateDistance(40, -726, 11) <= shackle_failure_dist and player:CharacterID() == sacrifice then
 				if not player:CastToMob():IsRooted() then
 					eq.get_entity_list():GetMobByNpcTypeID(154108):CastSpell(2860, player:GetID(),0,0,0,0,0,0,-2000);  --#High Priest Gakkernog casting animation
 				end
