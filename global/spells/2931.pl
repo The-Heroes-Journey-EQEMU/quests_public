@@ -5,8 +5,8 @@ sub EVENT_SPELL_EFFECT_CLIENT {
         $client->Message(289, "This may only be used inside Sanctus Seru.");
         return 1;
     } else {
-        quest::debug("Moving: $instanceid");
-        quest::MovePCInstance($zoneid, $instanceid, -231, -290, 60, 267);
+        $client->MovePCInstance($zoneid, $instanceid, -231, -290, 60, 267);
+        $client->InterruptSpell();
         return 1;
     }
     return 1;
