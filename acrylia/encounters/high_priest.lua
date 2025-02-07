@@ -3,7 +3,8 @@
 -- NPCs used in event
 local shackles				= 154309;
 local gakkernog				= 154390;
-local grimling_high_priest	= 154107;
+local fake_gakkernog		= 154308;
+local grimling_high_priest	= 154307;
 local grimlings				= {
 	154353,	-- lvl 50 warrior
 	154354,	-- lvl 50 SK
@@ -194,7 +195,7 @@ function evt_gakkernog_timer(e)
 	elseif e.timer == "depop" then
 		if not gak_combat and gak_trigger then
 			eq.stop_timer("combat_check");
-			eq.get_entity_list():GetSpawnByID(3387941):Repop(5); -- Repop HP trigger if event fails
+			eq.get_entity_list():GetSpawnByID(3387942):Repop(5); -- Repop HP trigger if event fails
 			eq.signal(shackles,1)
 			eq.depop();
 		end
@@ -264,7 +265,7 @@ function spawn_mob(NPCID, loc)
 end
 
 function HPShout(restart)
-	local hp = eq.get_entity_list():GetMobByNpcTypeID(154107);
+	local hp = eq.get_entity_list():GetMobByNpcTypeID(grimling_high_priest);
 
 	if restart then
 		hp:Shout("Master! The tresspassers have interrupted our sacred ritual.  We must restart!");
@@ -287,7 +288,7 @@ function player_check(e)
 		for player in player_list.entries do
 			if player:CalculateDistance(40, -726, 11) <= shackle_failure_dist and player:CharacterID() == sacrifice then
 				if not player:CastToMob():IsRooted() then
-					eq.get_entity_list():GetMobByNpcTypeID(154108):CastSpell(2860, player:GetID(),0,0,0,0,0,0,-2000);  --#High Priest Gakkernog casting animation
+					eq.get_entity_list():GetMobByNpcTypeID(grimling_high_priest):CastSpell(2860, player:GetID(),0,0,0,0,0,0,-2000);  --#High Priest Gakkernog casting animation
 				end
 				return true; -- if player within 1 and not FD, return true
 			end
