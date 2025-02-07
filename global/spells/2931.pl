@@ -6,7 +6,6 @@ sub EVENT_SPELL_EFFECT_CLIENT {
         return 1;
     } else {
         $client->MovePCInstance($zoneid, $instanceid, -231, -290, 60, 267);
-        $client->InterruptSpell();
         return 1;
     }
     return 1;
