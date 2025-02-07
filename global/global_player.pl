@@ -220,7 +220,7 @@ sub EVENT_WARP {
         }
 
         # Send the admin message
-        quest::discordsend("admin", $admin_message);
+        quest::discordsend("monitor", $admin_message);
         quest::debug($admin_message);
 
         if ($enforcement) {
