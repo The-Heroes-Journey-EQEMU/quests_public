@@ -6,7 +6,7 @@ sub EVENT_ITEM {
     quest::depop(116084);
   }
   else {
-    plugin::return_handin(\%itemcount);
+    plugin::return_items(\%itemcount);
   }
 }
 
