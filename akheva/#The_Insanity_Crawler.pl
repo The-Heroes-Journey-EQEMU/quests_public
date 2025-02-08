@@ -1,6 +1,6 @@
 sub EVENT_SPAWN {
     quest::ze(1, "You hear squealing voices of Centi echo through the dark hallways. Something must have them frightened. You find yourself wondering what could possibly scare the servants of the Akheva. Do you really want to know?");
-    quest::settimer("depop", 30 * 60);
+    #quest::settimer("depop", 30 * 60);
 }
 
 sub EVENT_SLAY {
