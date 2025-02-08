@@ -1,14 +1,6 @@
 -- A burrower parasite in The Burrower Beast event
 
-local EVENT_MOBS			= {
-	ROCK_BURROWER			= 164118,
-	SPINED_ROCK_BURROWER	= 164104,
-	STONE_CARVER			= 164100,
-	CORE_BURROWER			= 164108,
-	PARASITE_LARVA			= 164085,
-	BURROWER_PARASITE		= 164089,
-	MASSIVE_BURROWER		= 164111
-};
+local EVENT_MOBS			= {164118,164104,164100,164108,164085,164089,164111};
 
 function event_spawn(e)
 	eq.set_timer('depop', 60 * 60 * 1000);
