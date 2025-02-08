@@ -71,16 +71,16 @@ function reset(e, new_state)
 	eq.depop_all(lich_id);
 
 	set_state(new_state);
-	check_state(e);
+	check_state(e, true);
 end
 
-function check_state(e)
+function check_state(e, check_start)
 	local state = get_state();
 	if state == -1 then
 		return
 	end
 
-	if state == STATE_START then
+	if check_start and state == STATE_START then
 		eq.unique_spawn(zhezum_id, 0, 0, 547, -412, 9.1, 0);
 	end
 
@@ -151,5 +151,5 @@ function event_encounter_load(e)
 
 	eq.register_player_event(Event.say, GMControl);
 
-	check_state(e);
+	check_state(e, false);
 end
