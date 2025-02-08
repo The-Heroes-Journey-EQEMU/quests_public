@@ -20,6 +20,7 @@ local arcanist_counter			= 0;
 local leash_counter				= 0;
 local as_chants					= 0;
 local kr_chants					= 0;
+local instance_id				= 0;
 
 -- Event NPCS
 local arcanist_trigger			= 154322;
@@ -92,7 +93,7 @@ function evt_trigger_timer(e)
 end
 
 function evt_trigger_signal(e)
-	local instance_id	= eq.get_zone_instance_id();
+	instance_id	= eq.get_zone_instance_id();
 
 	if e.signal == 2 then
 		boss = true;
@@ -697,7 +698,7 @@ end
 
 -- General Functions
 function Setup()
-	local instance_id = eq.get_zone_instance_id();
+	instance_id = eq.get_zone_instance_id();
 	eq.delete_global(instance_id.. "_IAC_Seal_2");	-- clear qglobal if already up for some reason
 	eq.depop_all(154159); 							-- NPC: a_diseased_grimling
 	for n = 1,2 do
@@ -874,7 +875,7 @@ end
 
 function WardCheck() -- verifies both warders are dead before allowing progress to next stage of event
 	if life_seal and death_seal then
-		local instance_id = eq.get_zone_instance_id();
+		instance_id = eq.get_zone_instance_id();
 		eq.stop_timer("fail");
 		eq.spawn2(arcanist_trigger,0,0,614.00,-345.00,-23.00,374); -- Spawns Arcanist Trigger
 		eq.set_global(instance_id.. "_IAC_Seal_1","1",3,"H2");
