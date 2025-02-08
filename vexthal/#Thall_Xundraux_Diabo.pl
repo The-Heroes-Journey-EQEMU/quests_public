@@ -1,6 +1,7 @@
 # Warder control for 2nd raid target(s) on 2nd floor of vexthal
 
 sub EVENT_SPAWN {
+	return; # AHR is already gated, no need to deal with this.
 	quest::spawn2(158091,0,0,880.0,0,126.1,126); # NPC: Akhevan_Warder
 	quest::spawn2(158091,0,0,941.0,0,126.1,380); # NPC: Akhevan_Warder
 	quest::spawn2(158091,0,0,755.7,0,126.1,126); # NPC: Akhevan_Warder
