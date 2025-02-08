@@ -64,21 +64,23 @@ end
 function spawn_wave(wave_type)
 	if wave_type == 1 then
 		for i = 1, 12 do
-			local xloc, yloc;
+			local xloc, yloc, hloc;
 			repeat
-				xloc = math.random(1700, 1850)
-				yloc = math.random(200, 350)
+				xloc = math.ceil(math.random(1700, 1850));
+				yloc = math.ceil(math.random(200, 350));
+				hloc = math.ceil(math.random(255));
 			until not (xloc > 1740 and xloc < 1800 and yloc > 235 and yloc < 300)
-			eq.spawn2(EVENT_MOBS[math.random(3)], 0, 0, xloc, yloc, -60, math.random(255));
+			eq.spawn2(eq.ChooseRandom(EVENT_MOBS.ROCK_BURROWER, EVENT_MOBS.SPINED_ROCK_BURROWER, EVENT_MOBS.STONE_CARVER), 0, 0, xloc, yloc, -60, hloc);
 		end
 	elseif wave_type == 2 then
 		for i = 1, 6 do
-			local xloc, yloc;
+			local xloc, yloc, hloc;
 			repeat
-				xloc = math.random(1700, 1850)
-				yloc = math.random(200, 350)
+				xloc = math.ceil(math.random(1700, 1850));
+				yloc = math.ceil(math.random(200, 350));
+				hloc = math.ceil(math.random(255));
 			until not (xloc > 1740 and xloc < 1800 and yloc > 235 and yloc < 300)
-			eq.spawn2(EVENT_MOBS.CORE_BURROWER, 0, 0, xloc, yloc, -60, math.random(255));
+			eq.spawn2(EVENT_MOBS.CORE_BURROWER, 0, 0, xloc, yloc, -60, hloc);
 		end
 	elseif wave_type == 3 then
 		eq.spawn2(EVENT_MOBS.PARASITE_LARVA, 0, 0, 1792, 5, -70, 0);
