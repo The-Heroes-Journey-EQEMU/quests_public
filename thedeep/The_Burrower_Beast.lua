@@ -1,15 +1,7 @@
 -- The Burrower Beast event
 
 local wave 					= 0;
-local EVENT_MOBS			= {
-	ROCK_BURROWER			= 164118,
-	SPINED_ROCK_BURROWER	= 164104,
-	STONE_CARVER			= 164100,
-	CORE_BURROWER			= 164108,
-	PARASITE_LARVA			= 164085,
-	BURROWER_PARASITE		= 164089,
-	MASSIVE_BURROWER		= 164111
-};
+local EVENT_MOBS			= {164118,164104,164100,164108,164085,164089,164111};
 
 function event_spawn(e)
 	setup(e);
@@ -17,7 +9,7 @@ end
 
 function event_enter(e)
 	eq.zone_emote(MT.DimGray, "The ground around you begins to tremble and shake.");
-	eq.spawn2(EVENT_MOBS.MASSIVE_BURROWER, 0, 0, 1600, 275, -62, 128);
+	eq.spawn2(164111, 0, 0, 1600, 275, -62, 128);
 	eq.set_timer('wave', 45 * 1000);
 	eq.set_timer('HB', 30 * 1000);
 	eq.clear_proximity();
@@ -64,32 +56,30 @@ end
 function spawn_wave(wave_type)
 	if wave_type == 1 then
 		for i = 1, 12 do
-			local xloc, yloc, hloc;
+			local xloc, yloc;
 			repeat
-				xloc = math.ceil(math.random(1700, 1850));
-				yloc = math.ceil(math.random(200, 350));
-				hloc = math.ceil(math.random(255));
+				xloc = math.random(1700, 1850)
+				yloc = math.random(200, 350)
 			until not (xloc > 1740 and xloc < 1800 and yloc > 235 and yloc < 300)
-			eq.spawn2(eq.ChooseRandom(EVENT_MOBS.ROCK_BURROWER, EVENT_MOBS.SPINED_ROCK_BURROWER, EVENT_MOBS.STONE_CARVER), 0, 0, xloc, yloc, -60, hloc);
+			eq.spawn2(event_mobs[math.random(3)], 0, 0, xloc, yloc, -60, math.random(255));
 		end
 	elseif wave_type == 2 then
 		for i = 1, 6 do
-			local xloc, yloc, hloc;
+			local xloc, yloc;
 			repeat
-				xloc = math.ceil(math.random(1700, 1850));
-				yloc = math.ceil(math.random(200, 350));
-				hloc = math.ceil(math.random(255));
+				xloc = math.random(1700, 1850)
+				yloc = math.random(200, 350)
 			until not (xloc > 1740 and xloc < 1800 and yloc > 235 and yloc < 300)
-			eq.spawn2(EVENT_MOBS.CORE_BURROWER, 0, 0, xloc, yloc, -60, hloc);
+			eq.spawn2(164108, 0, 0, xloc, yloc, -60, math.random(255));
 		end
 	elseif wave_type == 3 then
-		eq.spawn2(EVENT_MOBS.PARASITE_LARVA, 0, 0, 1792, 5, -70, 0);
-		eq.spawn2(EVENT_MOBS.PARASITE_LARVA, 0, 0, 1767, 5, -70, 0);
+		eq.spawn2(164085, 0, 0, 1792, 5, -70, 0);
+		eq.spawn2(164085, 0, 0, 1767, 5, -70, 0);
 	end
 end
 
 function wave_final(ev)
-	eq.spawn2(EVENT_MOBS.BURROWER_PARASITE, 0, 0, ev.self:GetX(), ev.self:GetY(), ev.self:GetZ(), 0);
+	eq.spawn2(164089, 0, 0, ev.self:GetX(), ev.self:GetY(), ev.self:GetZ(), 0);
 	eq.stop_all_timers();
 	eq.depop_with_timer();
 end
