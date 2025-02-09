@@ -348,7 +348,7 @@ sub EVENT_CAST_ON {
 
 sub EVENT_CAST {
     if (plugin::GetSoulmark($client) && int(rand(100)) == 0) {
-        quests::debug("You seem to have a soulmark.");
+        quest::debug("You seem to have a soulmark.");
         $client->CastSpell(3087, $client->GetID());
     }
 }
