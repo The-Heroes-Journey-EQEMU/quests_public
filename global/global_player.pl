@@ -178,6 +178,14 @@ sub EVENT_CLICKDOOR {
     }
 }
 
+sub EVENT_EQUIP_ITEM_CLIENT {
+    plugin::CustomEventItemEquipEntry();
+}
+
+sub EVENT_UNEQUIP_ITEM_CLIENT {
+    plugin::CustomEventItemUnequipEntry();
+}
+
 sub EVENT_WARP {
     my $name = $client->GetCleanName();
     my $current_x = $client->GetX();
