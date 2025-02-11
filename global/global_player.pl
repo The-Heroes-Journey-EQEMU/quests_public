@@ -52,6 +52,8 @@ sub EVENT_ENTERZONE {
 }
 
 sub EVENT_EQUIP_ITEM_CLIENT {
+    plugin::CustomEventItemEquipEntry();
+
     if ($slot_id == 21) {
         # Simple Ring of the Hero, for Tutorial Quest 2
         if ($client->IsTaskActivityActive(4, 0) && $item_id == 150000) {
@@ -74,6 +76,10 @@ sub EVENT_EQUIP_ITEM_CLIENT {
     }
 
     symp_proc_tutorial_helper($item_id, $client);
+}
+
+sub EVENT_UNEQUIP_ITEM_CLIENT {
+    plugin::CustomEventItemUnequipEntry();
 }
 
 sub EVENT_DESTROY_ITEM_CLIENT {
@@ -176,14 +182,6 @@ sub EVENT_CLICKDOOR {
     if (!plugin::is_eligible_for_zone($client, $target_zone, 1)) {		
 		return 1;
     }
-}
-
-sub EVENT_EQUIP_ITEM_CLIENT {
-    plugin::CustomEventItemEquipEntry();
-}
-
-sub EVENT_UNEQUIP_ITEM_CLIENT {
-    plugin::CustomEventItemUnequipEntry();
 }
 
 sub EVENT_WARP {
