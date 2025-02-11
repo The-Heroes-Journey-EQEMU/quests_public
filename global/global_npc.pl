@@ -136,6 +136,10 @@ sub EVENT_AGGRO {
 }
 
 sub EVENT_SPAWN {
+    if (!plugin::CustomEventEntry($npc)) {
+        return;
+    }
+
     plugin::CheckSpawnWaypoints();
     
     if ($instanceversion > 0) {        
