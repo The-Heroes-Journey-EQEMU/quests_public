@@ -13,3 +13,7 @@ sub CustomEventItemEquipEntry {
 sub CustomEventItemUnequipEntry {
     return 0;
 }
+
+sub CustomEventHandinEntry {
+    return 0;
+}

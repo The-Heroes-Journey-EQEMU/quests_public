@@ -139,8 +139,12 @@ sub EVENT_AGGRO {
     }
 }
 
+sub EVENT_ITEM {
+    plugin::CustomEventHandinEntry();
+}
+
 sub EVENT_SPAWN {
-    if (CustomEventNPCSpawnEntry($npc)) {
+    if (plugin::CustomEventNPCSpawnEntry($npc)) {
         return;
     }
 
