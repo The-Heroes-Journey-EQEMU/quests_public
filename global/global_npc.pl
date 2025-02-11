@@ -1,5 +1,9 @@
 use List::Util 'min';
 sub EVENT_SAY {
+    if (plugin::CustomEventSayEntry($text, $npc, $client)) {
+        return;
+    }
+    
     if (plugin::MultiClassingEnabled() && $npc->GetClass() >= 20 && $npc->GetClass() <= 35) {
         my $classes = $client->GetClassesBitmask();
         my $player_class_id = $npc->GetClass() - 19;
@@ -136,7 +140,7 @@ sub EVENT_AGGRO {
 }
 
 sub EVENT_SPAWN {
-    if (!plugin::CustomEventEntry($npc)) {
+    if (CustomEventNPCSpawnEntry($npc)) {
         return;
     }
 

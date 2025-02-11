@@ -1,7 +1,7 @@
-sub CustomEventEntry {
-    my $npc = shift || plugin::val('npc');
+sub CustomEventNPCSpawnEntry {
+    return 0;
+}
 
-    if (!($npc && $npc->IsNPC())) {
-        return;
-    }
+sub CustomEventSayEntry {
+    return 0;
 }
