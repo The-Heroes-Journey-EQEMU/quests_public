@@ -87,6 +87,8 @@ sub EVENT_DESTROY_ITEM_CLIENT {
         my $account_key 	= $client->AccountID() . "-ess-items-destroyed";
         quest::set_data($account_key, (quest::get_data($account_key) || 0) + 1);
     }
+
+    plugin::CustomEventDestroyEntry($item, $quantity);
 }
 
 sub EVENT_CONNECT {

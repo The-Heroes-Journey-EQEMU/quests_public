@@ -17,3 +17,7 @@ sub CustomEventItemUnequipEntry {
 sub CustomEventHandinEntry {
     return 0;
 }
+
+sub CustomEventDestroyEntry {
+    return 0;
+}
