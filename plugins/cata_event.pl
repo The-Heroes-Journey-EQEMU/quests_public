@@ -21,3 +21,7 @@ sub CustomEventHandinEntry {
 sub CustomEventDestroyEntry {
     return 0;
 }
+
+sub CustomEventNPCDeathEntry {
+    return 0;
+}

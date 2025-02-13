@@ -89,6 +89,7 @@ sub EVENT_SAY {
 }
 
 sub EVENT_DEATH_COMPLETE {
+    plugin::CustomEventNPCDeathEntry();
     if (defined($killed_corpse_id)) {
         my $corpse = $entity_list->GetCorpseByID($killed_corpse_id);
         if ($corpse) {        
