@@ -141,7 +141,7 @@ sub ScaleInstanceNPC {
 	my $hp_ratio	 = $npc->GetHPRatio();
 	$npc->ModifyNPCStat("max_hp", $new_max_hp);
 
-	$npc->SetHP($npc->GetMaxHP() * $hp_ratio);
+	$npc->SetHP($npc->GetMaxHP() * $hp_ratio / 100);
 
 	my $new_max_hit = ceil($npc->GetEntityVariable("original_max_hit") * $scale_factor);
 	$npc->ModifyNPCStat("max_hit", $new_max_hit);
