@@ -56,8 +56,9 @@ function event_say(e)
 			e.other:Message(
 				MT.Yellow,
 				string.format(
-					"%s | %s",
+					"%s %s | %s",
 					flag_name,
+					type,
 					status_link
 				)
 			)
