@@ -45,7 +45,6 @@ end
 
 function event_waypoint_arrive(e)
 	if(e.wp == 9) then
-		eq.depop_all(214086); --Hendin_Shadow_Master (214086)
         eq.spawn2(214086,0,0,301,-57,169,0); --Hendin_Shadow_Master (214086)
         eq.spawn2(214086,0,0,271,-57,169,0); --Hendin_Shadow_Master (214086)
         eq.spawn2(214086,0,0,361,-57,169,0); --Hendin_Shadow_Master (214086)

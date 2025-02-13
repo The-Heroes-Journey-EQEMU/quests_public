@@ -14,7 +14,6 @@ end
 
 function event_waypoint_arrive(e)
 	if(e.wp == 9) then
-		eq.depop_all(214084); --Gindan_Flayer 214084
 		eq.spawn2(214084,0,0,359,73,169,255); --Gindan_Flayer 214084
 		eq.spawn2(214084,0,0,383,73,169,255); --Gindan_Flayer 214084
 		eq.spawn2(214084,0,0,308,73,169,255); --Gindan_Flayer 214084
