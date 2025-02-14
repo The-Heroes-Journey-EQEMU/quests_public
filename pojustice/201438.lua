@@ -3,7 +3,6 @@
 --
 -- items: 31599
 
-local torture_flag   = 0;
 local trial_group_id = 0;
 local client_id      = 0; -- character ID, not entity ID
 local mob_list       = { };
@@ -11,21 +10,29 @@ local mob_list       = { };
 local cooldown_timer = 1800000;
 local eject_timer    = 900000;
 
-local instance_id = eq.get_zone_instance_id();
-
 
 function event_say(e)
-	local qglobals = eq.get_qglobals(e.self,e.other);
-
-	if (qglobals["pop_poj_mavuin"] ~= nil) then 
-		if (e.message:findi("hail")) then 
-			e.self:Emote(" fixes you with a dark, peircing gaze. 'What do you want, mortal? Are you [" .. eq.say_link( "prepared", false, "prepared") .. "]?");
-
+	local mavuin_bucket = tonumber(e.other:GetAccountBucket("pop.flags.mavuin")) or 0
+	if (mavuin_bucket == 1) then
+		if (e.message:findi("hail")) then
+			local prepared_link = eq.silent_say_link("prepared")
+			e.self:Emote(
+				string.format(
+					" fixes you with a dark, peircing gaze. 'What do you want, mortal? Are you [%s]?",
+					prepared_link
+				)
+			);
 		elseif (e.message:findi("prepared")) then
-			e.self:Say("Very well. When you are ready, you may [" .. eq.say_link( "ready to begin the trial of torture", false, "begin the trial of torture" ) .. "]. Only when a wraith of agony dies will the prisoners feel any relief. Take care to find and kill it quickly, lest their torment overcome them. We shall judge the mark of your success.");
-			
+			local begin_the_trial_of_torture_link = eq.silent_say_link("begin the trial of torture");
+			e.self:Say(
+				string.format(
+					"Very well. When you are ready, you may [%s]. You must protect the victims from their tormentors. Be wary of the scourge of honor - you cannot fight it directly. You must find and destroy its life force to defeat it. We shall judge the mark of your success.",
+					begin_the_trial_of_torture_link
+				)
+			)
 		elseif (e.message:findi("ready to begin the trial of torture")) then
-			if ( torture_flag == 0 ) then 
+			local active_variable = tonumber(e.self:GetEntityVariable("Active")) or 0
+			if active_variable == 0 then
 				e.self:Say("Then begin.");
 
 				-- Move the Player and their Group tot he trial room.
@@ -35,7 +42,7 @@ function event_say(e)
 					trial_group_id = trial_group:GetID();
 				else
 					client_id = e.other:CharacterID();
-					e.other:MovePCInstance(201, instance_id, 729, -1119, 88, 128); -- Zone: pojustice
+					e.other:MovePCInstance(201, eq.get_zone_instance_id(), 729, -1119, 88, 128); -- Zone: pojustice
 				end
 
 				-- Spawn the Controller
@@ -45,14 +52,14 @@ function event_say(e)
 				eq.set_timer("proximitycheck", 60000);
 
 				-- Set a variable to indicate the Trial is unavailable.
-				torture_flag = 1;
+				e.self:SetEntityVariable("Active", "1")
 			else
 				e.self:Say("I'm sorry, the Trial of Torture is currently unavilable to you.");
 			end
 		elseif (e.message:findi("what evidence of mavuin") ) then
 			if ( e.other:HasItem(31844) ) then
-				eq.set_global("pop_poj_tribunal", "1", 5, "F");
-				eq.set_global("pop_poj_torture", "1", 5, "F");
+				e.other:SetAccountBucket("pop.flags.tribunal", "1");
+				e.other:SetAccountBucket("pop.flags.torture", "1");
 				e.other:Message(4, "You receive a character flag!");
 			end
 		elseif (e.message:findi("i seek knowledge") ) then
@@ -87,7 +94,7 @@ function event_timer(e)
 		else
             local client_e = eq.get_entity_list():GetClientByCharID(client_id);
             if (client_e ~= nil and client_e.valid) then
-                client_e.other:MovePCInstance( 201, instance_id, 456, 825, 9, 360 ); -- Zone: pojustice
+                client_e.other:MovePCInstance( 201, eq.get_zone_instance_id(), 456, 825, 9, 360 ); -- Zone: pojustice
                 client_e.other:Message(3, "A mysterious force translocates you.");
             end
 		end
@@ -98,7 +105,7 @@ function event_timer(e)
 	elseif (e.timer == "cooldown") then
 		eq.stop_timer(e.timer);
 
-        torture_flag   = 0;
+		e.self:DeleteEntityVariable("Active")
         client_id      = 0;
         trial_group_id = 0;
 
@@ -162,7 +169,7 @@ function MoveGroup(trial_group, src_x, src_y, src_z, distance, tgt_x, tgt_y, tgt
 					-- check the distance and port them up if close enough
 					if (client_v:CalculateDistance(src_x, src_y, src_z) <= distance) then
 						-- port the player up
-						client_v:MovePCInstance(201, instance_id, tgt_x, tgt_y, tgt_z, tgt_h); -- Zone: pojustice
+						client_v:MovePCInstance(201, eq.get_zone_instance_id(), tgt_x, tgt_y, tgt_z, tgt_h); -- Zone: pojustice
 
 						if (msg) then
 							client_v:Message(3, msg);
