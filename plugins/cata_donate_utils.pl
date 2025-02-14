@@ -102,13 +102,9 @@ sub ApplyWorldWideBuff {
       
     my %buff_types = (
         43002 => "Experience Gain",
-        43003 => "Hit Points and Armor Class",
-        43004 => "Basic Statistics",
         43005 => "Movement Speed",
-        43006 => "Mana Regeneration",
-        43007 => "Attack Speed",
-        43008 => "Health Regeneration",
-        17779 => "Loot Upgrade Rate"
+        17779 => "Loot Upgrade Rate",
+        36856 => "Overall Power"
     );
 
     my $buff_type = $buff_types{$buff_id} // "Unknown Buff";  # Fallback for unknown buff IDs
