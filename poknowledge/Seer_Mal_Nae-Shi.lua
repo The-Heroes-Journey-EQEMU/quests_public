@@ -53,6 +53,10 @@ function event_say(e)
 			local match_string = (flag:findi("pop.flags")) and "pop.flags." or "pop.alt."
 			local flag_name = string.gsub("^%1", string.gsub(flag, match_string, "").upper)
 
+			if type == "Alternate Access" then
+				flag_name = eq.get_zone_long_name(flag_name)
+			end
+
 			e.other:Message(
 				MT.Yellow,
 				string.format(
