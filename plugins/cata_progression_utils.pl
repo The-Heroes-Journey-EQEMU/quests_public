@@ -468,7 +468,7 @@ sub is_stage_complete_2 {
 sub is_time_locked {
     # Return 1 if locked, 0 if unlocked
     my $stage = shift;
-    my $client = plugin::var('client');
+    my $client = plugin::val('client');
 
     if (plugin::IsTHJ()) {  
         if ($stage eq 'RoK') {       
