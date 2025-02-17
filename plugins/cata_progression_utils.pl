@@ -482,7 +482,7 @@ sub is_time_locked {
             return 0;
         }
 
-        if ($client->Admin() >= 50 && $stage eq 'PoP') 
+        if ($client->Admin() >= 50 && $stage eq 'PoP')  {
             return 0;
         }
 
